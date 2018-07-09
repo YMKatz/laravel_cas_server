@@ -1,17 +1,22 @@
 {
-    "name": "leo108/laravel_cas_server",
-    "description": "A laravel package provides CAS server implementation",
+    "name": "ymkatz/laravel_cas_server_ldap",
+    "description": "A laravel package provides CAS server implementation with an LDAP backend",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "leo108",
             "email": "leo108@qq.com"
+        },
+        {
+            "name": "Yehuda Katz",
+            "email": "yehuda@ymkatz.net"
         }
     ],
     "require": {
         "php": ">=7.0",
         "ext-dom": "*",
+        "adldap2/adldap2-laravel": "^4.0",
         "illuminate/support": "5.5.*|5.6.*",
         "doctrine/dbal": "^2.5",
         "guzzlehttp/guzzle": "^6.2"
@@ -23,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Leo108\\CAS\\": "src"
+            "YMKatz\\CAS\\": "src"
         }
     },
     "autoload-dev": {
@@ -35,7 +40,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Leo108\\CAS\\CASServerServiceProvider"
+                "YMKatz\\CAS\\CASServerServiceProvider"
             ]
         }
     }

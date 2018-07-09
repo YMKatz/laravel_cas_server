@@ -6,7 +6,7 @@
  * Time: 07:26
  */
 
-namespace Leo108\CAS\Contracts\Models;
+namespace YMKatz\CAS\Contracts\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

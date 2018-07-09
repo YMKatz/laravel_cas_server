@@ -6,18 +6,18 @@
  * Time: 14:50
  */
 
-namespace Leo108\CAS\Http\Controllers;
+namespace YMKatz\CAS\Http\Controllers;
 
-use Leo108\CAS\Contracts\Interactions\UserLogin;
-use Leo108\CAS\Contracts\Models\UserModel;
-use Leo108\CAS\Events\CasUserLoginEvent;
-use Leo108\CAS\Events\CasUserLogoutEvent;
-use Leo108\CAS\Exceptions\CAS\CasException;
+use YMKatz\CAS\Contracts\Interactions\UserLogin;
+use YMKatz\CAS\Contracts\Models\UserModel;
+use YMKatz\CAS\Events\CasUserLoginEvent;
+use YMKatz\CAS\Events\CasUserLogoutEvent;
+use YMKatz\CAS\Exceptions\CAS\CasException;
 use Illuminate\Http\Request;
-use Leo108\CAS\Repositories\PGTicketRepository;
-use Leo108\CAS\Repositories\ServiceRepository;
-use Leo108\CAS\Repositories\TicketRepository;
-use function Leo108\CAS\cas_route;
+use YMKatz\CAS\Repositories\PGTicketRepository;
+use YMKatz\CAS\Repositories\ServiceRepository;
+use YMKatz\CAS\Repositories\TicketRepository;
+use function YMKatz\CAS\cas_route;
 
 class SecurityController extends Controller
 {

@@ -6,9 +6,9 @@
  * Time: 17:47
  */
 
-namespace Leo108\CAS\Responses;
+namespace YMKatz\CAS\Responses;
 
-use Leo108\CAS\Contracts\Responses\ProxyFailureResponse;
+use YMKatz\CAS\Contracts\Responses\ProxyFailureResponse;
 
 class JsonProxyFailureResponse extends BaseJsonResponse implements ProxyFailureResponse
 {

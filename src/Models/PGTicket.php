@@ -6,15 +6,15 @@
  * Time: 16:23
  */
 
-namespace Leo108\CAS\Models;
+namespace YMKatz\CAS\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Leo108\CAS\Contracts\Models\UserModel;
+use YMKatz\CAS\Contracts\Models\UserModel;
 
 /**
  * Class PGTicket
- * @package Leo108\CAS\Models
+ * @package YMKatz\CAS\Models
  *
  * @property integer   $id
  * @property string    $ticket

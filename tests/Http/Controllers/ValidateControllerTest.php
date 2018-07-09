@@ -6,26 +6,26 @@
  * Time: 15:56
  */
 
-namespace Leo108\CAS\Http\Controllers;
+namespace YMKatz\CAS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Leo108\CAS\Contracts\Models\UserModel;
-use Leo108\CAS\Contracts\TicketLocker;
-use Leo108\CAS\Exceptions\CAS\CasException;
-use Leo108\CAS\Models\Ticket;
-use Leo108\CAS\Repositories\PGTicketRepository;
-use Leo108\CAS\Repositories\TicketRepository;
-use Leo108\CAS\Responses\JsonAuthenticationFailureResponse;
-use Leo108\CAS\Responses\JsonAuthenticationSuccessResponse;
-use Leo108\CAS\Responses\JsonProxyFailureResponse;
-use Leo108\CAS\Responses\JsonProxySuccessResponse;
-use Leo108\CAS\Responses\XmlAuthenticationFailureResponse;
-use Leo108\CAS\Responses\XmlAuthenticationSuccessResponse;
-use Leo108\CAS\Responses\XmlProxyFailureResponse;
-use Leo108\CAS\Responses\XmlProxySuccessResponse;
-use Leo108\CAS\Services\PGTCaller;
-use Leo108\CAS\Services\TicketGenerator;
+use YMKatz\CAS\Contracts\Models\UserModel;
+use YMKatz\CAS\Contracts\TicketLocker;
+use YMKatz\CAS\Exceptions\CAS\CasException;
+use YMKatz\CAS\Models\Ticket;
+use YMKatz\CAS\Repositories\PGTicketRepository;
+use YMKatz\CAS\Repositories\TicketRepository;
+use YMKatz\CAS\Responses\JsonAuthenticationFailureResponse;
+use YMKatz\CAS\Responses\JsonAuthenticationSuccessResponse;
+use YMKatz\CAS\Responses\JsonProxyFailureResponse;
+use YMKatz\CAS\Responses\JsonProxySuccessResponse;
+use YMKatz\CAS\Responses\XmlAuthenticationFailureResponse;
+use YMKatz\CAS\Responses\XmlAuthenticationSuccessResponse;
+use YMKatz\CAS\Responses\XmlProxyFailureResponse;
+use YMKatz\CAS\Responses\XmlProxySuccessResponse;
+use YMKatz\CAS\Services\PGTCaller;
+use YMKatz\CAS\Services\TicketGenerator;
 use TestCase;
 use Mockery;
 

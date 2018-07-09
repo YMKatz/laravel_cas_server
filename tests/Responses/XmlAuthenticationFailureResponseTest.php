@@ -6,7 +6,7 @@
  * Time: 13:29
  */
 
-namespace Leo108\CAS\Responses;
+namespace YMKatz\CAS\Responses;
 
 use TestCase;
 

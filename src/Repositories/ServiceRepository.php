@@ -6,10 +6,10 @@
  * Time: 20:13
  */
 
-namespace Leo108\CAS\Repositories;
+namespace YMKatz\CAS\Repositories;
 
-use Leo108\CAS\Models\Service;
-use Leo108\CAS\Models\ServiceHost;
+use YMKatz\CAS\Models\Service;
+use YMKatz\CAS\Models\ServiceHost;
 
 class ServiceRepository
 {

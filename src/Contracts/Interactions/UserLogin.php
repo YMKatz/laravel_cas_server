@@ -6,10 +6,10 @@
  * Time: 21:35
  */
 
-namespace Leo108\CAS\Contracts\Interactions;
+namespace YMKatz\CAS\Contracts\Interactions;
 
 use Illuminate\Http\Request;
-use Leo108\CAS\Contracts\Models\UserModel;
+use YMKatz\CAS\Contracts\Models\UserModel;
 use Symfony\Component\HttpFoundation\Response;
 
 interface UserLogin

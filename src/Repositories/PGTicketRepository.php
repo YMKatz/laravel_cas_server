@@ -6,13 +6,13 @@
  * Time: 16:34
  */
 
-namespace Leo108\CAS\Repositories;
+namespace YMKatz\CAS\Repositories;
 
 use Carbon\Carbon;
-use Leo108\CAS\Contracts\Models\UserModel;
-use Leo108\CAS\Exceptions\CAS\CasException;
-use Leo108\CAS\Models\PGTicket;
-use Leo108\CAS\Services\TicketGenerator;
+use YMKatz\CAS\Contracts\Models\UserModel;
+use YMKatz\CAS\Exceptions\CAS\CasException;
+use YMKatz\CAS\Models\PGTicket;
+use YMKatz\CAS\Services\TicketGenerator;
 
 class PGTicketRepository
 {

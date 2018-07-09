@@ -6,9 +6,9 @@
  * Time: 14:50
  */
 
-namespace Leo108\CAS {
+namespace YMKatz\CAS {
 
-    use Leo108\CAS\Http\Controllers\SecurityControllerTest;
+    use YMKatz\CAS\Http\Controllers\SecurityControllerTest;
 
     //mock function
     function cas_route($name, $query)
@@ -17,18 +17,18 @@ namespace Leo108\CAS {
     }
 }
 
-namespace Leo108\CAS\Http\Controllers {
+namespace YMKatz\CAS\Http\Controllers {
 
     use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
-    use Leo108\CAS\Contracts\Interactions\UserLogin;
-    use Leo108\CAS\Contracts\Models\UserModel;
-    use Leo108\CAS\Events\CasUserLoginEvent;
-    use Leo108\CAS\Events\CasUserLogoutEvent;
-    use Leo108\CAS\Exceptions\CAS\CasException;
-    use Leo108\CAS\Repositories\PGTicketRepository;
-    use Leo108\CAS\Repositories\ServiceRepository;
-    use Leo108\CAS\Repositories\TicketRepository;
+    use YMKatz\CAS\Contracts\Interactions\UserLogin;
+    use YMKatz\CAS\Contracts\Models\UserModel;
+    use YMKatz\CAS\Events\CasUserLoginEvent;
+    use YMKatz\CAS\Events\CasUserLogoutEvent;
+    use YMKatz\CAS\Exceptions\CAS\CasException;
+    use YMKatz\CAS\Repositories\PGTicketRepository;
+    use YMKatz\CAS\Repositories\ServiceRepository;
+    use YMKatz\CAS\Repositories\TicketRepository;
     use TestCase;
     use Mockery;
 

@@ -6,9 +6,9 @@
  * Time: 16:23
  */
 
-namespace Leo108\CAS\Responses;
+namespace YMKatz\CAS\Responses;
 
-use Leo108\CAS\Contracts\Responses\AuthenticationFailureResponse;
+use YMKatz\CAS\Contracts\Responses\AuthenticationFailureResponse;
 
 class JsonAuthenticationFailureResponse extends BaseJsonResponse implements AuthenticationFailureResponse
 {
