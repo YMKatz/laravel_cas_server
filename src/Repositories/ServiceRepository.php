@@ -8,30 +8,28 @@
 
 namespace YMKatz\CAS\Repositories;
 
+use Adldap\AdldapInterface;
 use YMKatz\CAS\Models\Service;
 use YMKatz\CAS\Models\ServiceHost;
 
 class ServiceRepository
 {
-    /**
-     * @var Service
-     */
-    protected $service;
 
     /**
-     * @var ServiceHost;
+     * @var Adldap
      */
-    protected $serviceHost;
-
+    protected $ldap;
+    protected $connection;
+    
     /**
-     * ServiceRepository constructor.
-     * @param Service     $service
-     * @param ServiceHost $serviceHost
+     * Constructor.
+     *
+     * @param AdldapInterface $adldap
      */
-    public function __construct(Service $service, ServiceHost $serviceHost)
+    public function __construct(AdldapInterface $ldap)
     {
-        $this->service     = $service;
-        $this->serviceHost = $serviceHost;
+        $this->ldap = $ldap;
+        $this->connection = config('cas.ldap.connection');
     }
 
     /**
@@ -42,12 +40,21 @@ class ServiceRepository
     {
         $host = parse_url($url, PHP_URL_HOST);
 
-        $record = $this->serviceHost->where('host', $host)->first();
+        $l = $this->getLdapConnection();
+
+        $service_hosts = $l->search()->where(["objectclass" => "csdCasServiceHost",])->where('host', $host)->get();
+
+        if (count($service_hosts) > 1){
+            throw new \Exception("Multiple services on one host are not implmented yet.");
+        }
+
+        $record = $service_hosts->first();
+
         if (!$record) {
             return null;
         }
 
-        return $record->service;
+        return $record->service();
     }
 
     /**
@@ -57,7 +64,11 @@ class ServiceRepository
     public function isUrlValid($url)
     {
         $service = $this->getServiceByUrl($url);
-
         return $service !== null && $service->enabled;
+    }
+
+    private function getLdapConnection()
+    {
+        return $this->ldap->connect($this->connection);
     }
 }

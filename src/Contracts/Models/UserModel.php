@@ -8,7 +8,7 @@
 
 namespace YMKatz\CAS\Contracts\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Adldap\Models\Model;
 
 interface UserModel
 {
@@ -29,5 +29,5 @@ interface UserModel
     /**
      * @return Model
      */
-    public function getEloquentModel();
+    public function getLdapModel();
 }

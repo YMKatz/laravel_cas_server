@@ -65,15 +65,15 @@ class ValidateController extends Controller
     public function __construct(
         TicketLocker $ticketLocker,
         TicketRepository $ticketRepository,
-        PGTicketRepository $pgTicketRepository,
-        TicketGenerator $ticketGenerator,
-        PGTCaller $pgtCaller
+        // PGTicketRepository $pgTicketRepository,
+        TicketGenerator $ticketGenerator
+        // PGTCaller $pgtCaller
     ) {
         $this->ticketLocker       = $ticketLocker;
         $this->ticketRepository   = $ticketRepository;
-        $this->pgTicketRepository = $pgTicketRepository;
+        // $this->pgTicketRepository = $pgTicketRepository;
         $this->ticketGenerator    = $ticketGenerator;
-        $this->pgtCaller          = $pgtCaller;
+        // $this->pgtCaller          = $pgtCaller;
     }
 
     public function v1ValidateAction(Request $request)
@@ -173,12 +173,13 @@ class ValidateController extends Controller
         }
 
         $record = $this->ticketRepository->getByTicket($ticket);
+
         try {
             if (!$record || (!$allowProxy && $record->isProxy())) {
                 throw new CasException(CasException::INVALID_TICKET, 'ticket is not valid');
             }
 
-            if ($record->service_url != $service) {
+            if ($record->getServiceUrl() != $service) {
                 throw new CasException(CasException::INVALID_SERVICE, 'service is not valid');
             }
         } catch (CasException $e) {
@@ -195,7 +196,7 @@ class ValidateController extends Controller
         }
 
         $user = $record->user;
-        $this->ticketRepository->invalidTicket($record);
+        //$this->ticketRepository->invalidTicket($record);
         $this->unlockTicket($ticket);
 
         //handle pgt
@@ -213,9 +214,9 @@ class ValidateController extends Controller
             }
         }
 
-        $attr = $returnAttr ? $record->user->getCASAttributes() : [];
+        $attr = $returnAttr ? $record->getUser()->getCASAttributes() : [];
 
-        return $this->authSuccessResponse($record->user->getName(), $format, $attr, $proxies, $iou);
+        return $this->authSuccessResponse($record->getUser()->getUid(), $format, $attr, $proxies, $iou);
     }
 
     /**

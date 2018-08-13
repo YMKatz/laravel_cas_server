@@ -8,6 +8,7 @@
 
 namespace YMKatz\CAS\Repositories;
 
+use Adldap\AdldapInterface;
 use Carbon\Carbon;
 use YMKatz\CAS\Contracts\Models\UserModel;
 use YMKatz\CAS\Exceptions\CAS\CasException;
@@ -17,10 +18,11 @@ use YMKatz\CAS\Services\TicketGenerator;
 class TicketRepository
 {
     /**
-     * @var Ticket
+     * @var Adldap
      */
-    protected $ticket;
-
+    protected $ldap;
+    protected $connection;
+    
     /**
      * @var ServiceRepository
      */
@@ -37,9 +39,11 @@ class TicketRepository
      * @param ServiceRepository $serviceRepository
      * @param TicketGenerator   $ticketGenerator
      */
-    public function __construct(Ticket $ticket, ServiceRepository $serviceRepository, TicketGenerator $ticketGenerator)
+    public function __construct(AdldapInterface $ldap, ServiceRepository $serviceRepository, TicketGenerator $ticketGenerator)
     {
-        $this->ticket            = $ticket;
+        $this->ldap = $ldap;
+        $this->connection = config('cas.ldap.connection');
+
         $this->serviceRepository = $serviceRepository;
         $this->ticketGenerator   = $ticketGenerator;
     }
@@ -53,6 +57,8 @@ class TicketRepository
      */
     public function applyTicket(UserModel $user, $serviceUrl, $proxies = [])
     {
+        $l = $this->getLdapConnection();
+
         $service = $this->serviceRepository->getServiceByUrl($serviceUrl);
         if (!$service) {
             throw new CasException(CasException::INVALID_SERVICE);
@@ -61,17 +67,17 @@ class TicketRepository
         if ($ticket === false) {
             throw new CasException(CasException::INTERNAL_ERROR, 'apply ticket failed');
         }
-        $record = $this->ticket->newInstance(
+        $record = $l->make()->cas_ticket(
             [
-                'ticket'      => $ticket,
+                'casticket'      => $ticket,
                 'expire_at'   => new Carbon(sprintf('+%dsec', config('cas.ticket_expire', 300))),
-                'created_at'  => new Carbon(),
-                'service_url' => $serviceUrl,
-                'proxies'     => $proxies,
+                //'created_at'  => new Carbon(),
+                'casServiceUrl' => $serviceUrl,
+                //'proxies'     => $proxies,
             ]
         );
-        $record->user()->associate($user->getEloquentModel());
-        $record->service()->associate($service);
+        $record->setUser($user->getLdapModel());
+        $record->setService($service);
         $record->save();
 
         return $record;
@@ -84,10 +90,17 @@ class TicketRepository
      */
     public function getByTicket($ticket, $checkExpired = true)
     {
-        $record = $this->ticket->where('ticket', $ticket)->first();
-        if (!$record) {
+        $l = $this->getLdapConnection();
+
+        $records = $l->search()->where(["objectclass" => "csdCasTicket",])->where('casTicket', $ticket)->get();
+
+        if (count($records) > 1){
+            throw new CasException(CasException::INTERNAL_ERROR, 'ticket unique error');
+        }
+        if (count($records) === 0) {
             return null;
         }
+        $record = $records->first();
 
         return ($checkExpired && $record->isExpired()) ? null : $record;
     }
@@ -117,4 +130,10 @@ class TicketRepository
             10
         );
     }
+
+    private function getLdapConnection()
+    {
+        return $this->ldap->connect($this->connection);
+    }
+
 }

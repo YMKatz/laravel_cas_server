@@ -66,7 +66,7 @@ class PGTicketRepository
      */
     public function invalidTicketByUser(UserModel $user)
     {
-        $this->pgTicket->where('user_id', $user->getEloquentModel()->getKey())->delete();
+        $this->pgTicket->where('user_id', $user->getLdapModel()->getKey())->delete();
     }
 
     /**
@@ -96,7 +96,7 @@ class PGTicketRepository
                 'proxies'    => $proxies,
             ]
         );
-        $record->user()->associate($user->getEloquentModel());
+        $record->user()->associate($user->getLdapModel());
         $record->service()->associate($service);
         $record->save();
 

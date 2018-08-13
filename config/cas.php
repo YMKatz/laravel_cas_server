@@ -21,4 +21,8 @@ return [
         'common' => 'web',
         'auth'   => 'auth',
     ],
+    'ldap'              => [
+        'connection' => 'ipa',
+        'base_dn'    => 'cn=login,cn=control,dc=example,dc=com',
+    ],
 ];

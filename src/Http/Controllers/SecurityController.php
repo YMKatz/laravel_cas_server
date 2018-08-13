@@ -50,13 +50,13 @@ class SecurityController extends Controller
     public function __construct(
         ServiceRepository $serviceRepository,
         TicketRepository $ticketRepository,
-        PGTicketRepository $pgTicketRepository,
+        //PGTicketRepository $pgTicketRepository,
         UserLogin $loginInteraction
     ) {
+        $this->loginInteraction   = $loginInteraction;
         $this->serviceRepository  = $serviceRepository;
         $this->ticketRepository   = $ticketRepository;
-        $this->loginInteraction   = $loginInteraction;
-        $this->pgTicketRepository = $pgTicketRepository;
+        //$this->pgTicketRepository = $pgTicketRepository;
     }
 
     public function showLogin(Request $request)
@@ -115,7 +115,7 @@ class SecurityController extends Controller
             } catch (CasException $e) {
                 return $this->loginInteraction->redirectToHome([$e->getCasMsg()]);
             }
-            $finalUrl = $serviceUrl.($query ? '&' : '?').'ticket='.$ticket->ticket;
+            $finalUrl = $serviceUrl.($query ? '&' : '?').'ticket='.$ticket->getCommonName();
 
             return redirect($finalUrl);
         }

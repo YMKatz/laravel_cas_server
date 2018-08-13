@@ -9,7 +9,7 @@
 namespace YMKatz\CAS\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Adldap\Models\Model;
 use YMKatz\CAS\Contracts\Models\UserModel;
 
 /**
@@ -29,8 +29,6 @@ use YMKatz\CAS\Contracts\Models\UserModel;
  */
 class Ticket extends Model
 {
-    protected $table = 'cas_tickets';
-    public $timestamps = false;
     protected $fillable = ['ticket', 'service_url', 'proxies', 'expire_at', 'created_at'];
     protected $casts = [
         'expire_at'  => 'datetime',
@@ -53,21 +51,57 @@ class Ticket extends Model
 
     public function isExpired()
     {
-        return $this->expire_at->getTimestamp() < time();
+        $t = new Carbon($this->getFirstAttribute('expire_at'));
+        return $t->getTimestamp() < time();
     }
 
-    public function service()
+    public function getService()
     {
-        return $this->belongsTo(Service::class);
+        $service_dn = $this->getFirstAttribute("casservice");
+        return $this->query->newInstance()->findByDn($service_dn);
     }
 
-    public function user()
+    public function setService($dn)
     {
-        return $this->belongsTo(config('cas.user_table.model'), 'user_id', config('cas.user_table.id'));
+        if ($dn instanceof Service) {
+            $dn = $dn->getDn();
+        }
+        
+        return $this->setFirstAttribute('casservice', $dn);
+    }
+
+    public function getServiceUrl()
+    {
+        return $this->getFirstAttribute("casserviceurl");
+    }
+
+    public function getUser()
+    {
+        $user_dn = $this->getFirstAttribute("uid");
+        return $this->query->newInstance()->findByDn($user_dn);
+    }
+
+    public function setUser(UserModel $user)
+    {
+        $user_dn = $user->dn[0];
+        $this->uid = $user_dn;
     }
 
     public function isProxy()
     {
         return !empty($this->proxies);
+    }
+
+    /**
+     * Common Name is Ticket Number
+     */
+    public function getCommonName()
+    {
+        return $this->getFirstAttribute('casticket');
+    }
+
+    protected function getCreatableDn()
+    {
+        return sprintf("casTicket=%s,cn=cas_tickets,cn=login,cn=csd,%s", $this->getCommonName(), $this->query->getDn());
     }
 }

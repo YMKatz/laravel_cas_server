@@ -9,7 +9,7 @@
 namespace YMKatz\CAS\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Adldap\Models\Model;
 use YMKatz\CAS\Contracts\Models\UserModel;
 
 /**

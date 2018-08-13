@@ -8,7 +8,7 @@
 
 namespace YMKatz\CAS\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Adldap\Models\Model;
 
 /**
  * Class Service
@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Service extends Model
 {
-    protected $table = 'cas_services';
     protected $fillable = ['name', 'enabled', 'allow_proxy'];
     protected $casts = [
         'enabled'     => 'boolean',
@@ -30,5 +29,19 @@ class Service extends Model
     public function hosts()
     {
         return $this->hasMany(ServiceHost::class);
+    }
+
+    /**
+     * Returns true / false if the service is enabled
+     *
+     * @return null|bool
+     */
+    public function getEnabled()
+    {
+        return $this->convertStringToBool(
+            $this->getFirstAttribute(
+                "enabled"
+            )
+        );
     }
 }

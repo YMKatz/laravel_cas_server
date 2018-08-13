@@ -8,7 +8,7 @@
 
 namespace YMKatz\CAS\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Adldap\Models\Model;
 
 /**
  * Class ServiceHost
@@ -19,12 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ServiceHost extends Model
 {
-    protected $table = 'cas_service_hosts';
-    public $timestamps = false;
-    protected $fillable = ['host'];
-
     public function service()
     {
-        return $this->belongsTo(Service::class);
+    	$service_dn = $this->getFirstAttribute("casservice");
+    	return $this->query->newInstance()->findByDn($service_dn);
     }
 }
