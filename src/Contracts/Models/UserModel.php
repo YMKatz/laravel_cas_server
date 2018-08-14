@@ -24,7 +24,7 @@ interface UserModel
      *
      * @return array
      */
-    public function getCASAttributes();
+    public function getCASAttributes($requested_attributes);
 
     /**
      * @return Model

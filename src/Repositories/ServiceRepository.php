@@ -64,7 +64,7 @@ class ServiceRepository
     public function isUrlValid($url)
     {
         $service = $this->getServiceByUrl($url);
-        return $service !== null && $service->enabled;
+        return $service !== null && $service->getFirstAttribute('casserviceenabled');
     }
 
     private function getLdapConnection()

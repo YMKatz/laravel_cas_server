@@ -196,7 +196,7 @@ class ValidateController extends Controller
         }
 
         $user = $record->user;
-        //$this->ticketRepository->invalidTicket($record);
+        $this->ticketRepository->invalidTicket($record);
         $this->unlockTicket($ticket);
 
         //handle pgt
@@ -214,7 +214,13 @@ class ValidateController extends Controller
             }
         }
 
-        $attr = $returnAttr ? $record->getUser()->getCASAttributes() : [];
+        $attr = [];
+        if ($returnAttr) {
+            $service_object = $record->getService();
+            $requested_attributes = $service_object->casadditionalattribute;
+
+            $attr = $record->getUser()->getCASAttributes($requested_attributes);
+        }
 
         return $this->authSuccessResponse($record->getUser()->getUid(), $format, $attr, $proxies, $iou);
     }
