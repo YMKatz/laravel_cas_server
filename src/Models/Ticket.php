@@ -29,10 +29,10 @@ use YMKatz\CAS\Contracts\Models\UserModel;
  */
 class Ticket extends Model
 {
-    protected $fillable = ['ticket', 'service_url', 'proxies', 'expire_at', 'created_at'];
+    protected $fillable = ['ticket', 'service_url', 'proxies', 'expireAt', 'createdAt'];
     protected $casts = [
-        'expire_at'  => 'datetime',
-        'created_at' => 'datetime',
+        'expireAt'  => 'timestamp',
+        'createdAt' => 'timestamp',
     ];
 
     public function getProxiesAttribute()

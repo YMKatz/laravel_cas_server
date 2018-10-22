@@ -69,8 +69,8 @@ class TicketRepository
         }
         $record = $l->make()->cas_ticket(
             [
-                'casticket'      => $ticket,
-                'expire_at'   => new Carbon(sprintf('+%dsec', config('cas.ticket_expire', 300))),
+                'casTicket'      => $ticket,
+                'expireAt'   => (new Carbon(sprintf('+%dsec', config('cas.ticket_expire', 300))))->format('YmdHisO'),
                 //'created_at'  => new Carbon(),
                 'casServiceUrl' => $serviceUrl,
                 //'proxies'     => $proxies,
