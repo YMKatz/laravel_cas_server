@@ -87,6 +87,20 @@ class Ticket extends Model
         $this->uid = $user_dn;
     }
 
+    public function setMeta($a)
+    {
+        $this->metaInfo = json_encode($a);
+    }
+
+    public function getMeta()
+    {
+        if (!empty($this->getFirstAttribute('metaInfo')))
+        {
+            return json_decode($this->getFirstAttribute('metaInfo'), true);
+        }
+        return [];
+    }
+
     public function isProxy()
     {
         return !empty($this->proxies);

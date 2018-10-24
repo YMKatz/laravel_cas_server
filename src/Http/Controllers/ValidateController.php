@@ -196,6 +196,7 @@ class ValidateController extends Controller
         }
 
         $user = $record->user;
+        $ticket_info = ['meta' => $record->getMeta(), ];
         $this->ticketRepository->invalidTicket($record);
         $this->unlockTicket($ticket);
 
@@ -218,8 +219,26 @@ class ValidateController extends Controller
         if ($returnAttr) {
             $service_object = $record->getService();
             $requested_attributes = $service_object->casadditionalattribute;
+            $return_all_meta = in_array('meta', $requested_attributes);
 
             $attr = $record->getUser()->getCASAttributes($requested_attributes);
+
+            if ($return_all_meta)
+            {
+                $meta_array = ['meta' => $ticket_info['meta'], ];
+                $attr = array_merge($attr, array_dot($meta_array));
+            }
+            else
+            {
+                $meta_array = array_where($requested_attributes, function ($value) {
+                    return strpos($value, 'meta.') === 0;
+                });
+                foreach ($meta_array as $m)
+                {
+                    $attr[$m] = array_get($ticket_info, $m);
+                }
+
+            }
         }
 
         return $this->authSuccessResponse($record->getUser()->getUid(), $format, $attr, $proxies, $iou);

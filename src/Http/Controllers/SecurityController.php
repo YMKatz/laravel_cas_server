@@ -64,8 +64,8 @@ class SecurityController extends Controller
         $service = $request->get('service', '');
         $errors  = [];
         if (!empty($service)) {
-            //service not found in white list
             if (!$this->serviceRepository->isUrlValid($service)) {
+                //service not found in white list
                 $errors[] = (new CasException(CasException::INVALID_SERVICE))->getCasMsg();
             }
         }

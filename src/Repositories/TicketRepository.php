@@ -78,6 +78,9 @@ class TicketRepository
         );
         $record->setUser($user->getLdapModel());
         $record->setService($service);
+
+        $record->setMeta(session('meta'));
+
         $record->save();
 
         return $record;
