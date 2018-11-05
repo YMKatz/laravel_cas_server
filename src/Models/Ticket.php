@@ -89,14 +89,14 @@ class Ticket extends Model
 
     public function setMeta($a)
     {
-        $this->metaInfo = json_encode($a);
+        $this->casMetaInfo = json_encode($a);
     }
 
     public function getMeta()
     {
-        if (!empty($this->getFirstAttribute('metaInfo')))
+        if (!empty($this->getFirstAttribute('casMetaInfo')))
         {
-            return json_decode($this->getFirstAttribute('metaInfo'), true);
+            return json_decode($this->getFirstAttribute('casMetaInfo'), true);
         }
         return [];
     }

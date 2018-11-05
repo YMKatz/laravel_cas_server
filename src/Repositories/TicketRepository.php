@@ -69,11 +69,11 @@ class TicketRepository
         }
         $record = $l->make()->cas_ticket(
             [
-                'casTicket'      => $ticket,
-                'expireAt'   => (new Carbon(sprintf('+%dsec', config('cas.ticket_expire', 300))))->format('YmdHisO'),
-                //'created_at'  => new Carbon(),
+                'casTicket'     => $ticket,
+                'expireAt'      => (new Carbon(sprintf('+%dsec', config('cas.ticket_expire', 300))))->format('YmdHisO'),
+                //'created_at'    => new Carbon(),
                 'casServiceUrl' => $serviceUrl,
-                //'proxies'     => $proxies,
+                //'proxies'       => $proxies,
             ]
         );
         $record->setUser($user->getLdapModel());
