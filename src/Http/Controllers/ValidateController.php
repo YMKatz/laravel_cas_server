@@ -219,8 +219,12 @@ class ValidateController extends Controller
         if ($returnAttr) {
             $service_object = $record->getService();
             $requested_attributes = $service_object->casadditionalattribute;
-            $return_all_meta = in_array('meta', $requested_attributes);
+            if (! is_array($requested_attributes) )
+            {
+                $requested_attributes = [];
+            }
 
+            $return_all_meta = in_array('meta', $requested_attributes);
             $attr = $record->getUser()->getCASAttributes($requested_attributes);
 
             if ($return_all_meta)
