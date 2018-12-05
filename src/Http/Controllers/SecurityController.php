@@ -63,11 +63,16 @@ class SecurityController extends Controller
     {
         $service = $request->get('service', '');
         $errors  = [];
+
         if (!empty($service)) {
             if (!$this->serviceRepository->isUrlValid($service)) {
                 //service not found in white list
                 $errors[] = (new CasException(CasException::INVALID_SERVICE))->getCasMsg();
+            } else {
+                $service_object = $this->serviceRepository->getServiceByUrl($service);
             }
+        } else {
+            $service_object = null;
         }
 
         $user = $this->loginInteraction->getCurrentUser($request);
@@ -91,7 +96,7 @@ class SecurityController extends Controller
 
         }
 
-        return $this->loginInteraction->showLoginPage($request, $errors);
+        return $this->loginInteraction->showLoginPage($request, $service_object, $errors);
     }
 
     public function login(Request $request)

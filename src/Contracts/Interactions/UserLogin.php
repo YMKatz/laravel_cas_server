@@ -52,10 +52,11 @@ interface UserLogin
      * Show login page
      *
      * @param Request $request
+     * @param string  $service_object
      * @param array   $errors
      * @return Response
      */
-    public function showLoginPage(Request $request, array $errors = []);
+    public function showLoginPage(Request $request, $service_object, array $errors = []);
 
     /**
      * Redirect to home page
