@@ -133,7 +133,7 @@ class SecurityController extends Controller
         $user = $this->loginInteraction->getCurrentUser($request);
         if ($user) {
             $this->loginInteraction->logout($request);
-            $this->pgTicketRepository->invalidTicketByUser($user);
+            //$this->pgTicketRepository->invalidTicketByUser($user);
             event(new CasUserLogoutEvent($request, $user));
         }
         $service = $request->get('service');
