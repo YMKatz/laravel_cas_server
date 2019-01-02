@@ -16,7 +16,7 @@
     "require": {
         "php": ">=7.0",
         "ext-dom": "*",
-        "adldap2/adldap2-laravel": "dev-master",
+        "adldap2/adldap2-laravel": "^5.1.0",
         "illuminate/support": "5.5.*|5.6.*",
         "doctrine/dbal": "^2.5",
         "guzzlehttp/guzzle": "^6.2"
