@@ -2,7 +2,7 @@
 
 laravel_cas_server_ldap is a Laravel package that implements the server part of [CAS protocol](https://apereo.github.io/cas/4.2.x/protocol/CAS-Protocol-Specification.html) v1/v2/v3. This is a fork of [leo108/laravel_cas_server](https://github.com/leo108/laravel_cas_server) that is backed by LDAP instead of Eloquent.
 
-This package works for Laravel 5.5/5.6 . This fork does not support Laravel 5.1 - 5.4 .
+This package works for Laravel 5.8.
 
 [![Latest Version](http://img.shields.io/github/release/YMKatz/laravel_cas_server_ldap.svg)](https://github.com/YMKatz/laravel_cas_server_ldap/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
